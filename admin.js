@@ -362,19 +362,20 @@ async function descargarRifaCSV() {
     }
 
     // Encabezado
-    const filas = [["Número", "Nombre", "Estado"]];
+const filas = [["Número", "Nombre","N° celular", "Estado"]];
 
     data.forEach(item => {
       filas.push([
         String(item.numero).padStart(2, "0"),
         item.nombre || "-",
+        item.telefono || "-",
         normalizarEstado(item.estado)
       ]);
     });
 
     // Convertir a texto CSV
     const csvContent = filas
-      .map(fila => fila.map(celda => `"${celda}"`).join(","))
+      .map(fila => fila.map(celda => `"${celda}"`).join(";"))
       .join("\n");
 
     // Agregar BOM para que Excel abra bien los acentos
